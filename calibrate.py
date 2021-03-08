@@ -70,12 +70,12 @@ if __name__ == '__main__':
             cv2.drawChessboardCorners(img_chess, pattern_size, corners, found)
             cv2.imwrite(os.path.join(args.debug_dir, '%04d.png' % i), img_chess)
         if not found:
-            print 'not found'
+            print('not found')
             continue
         img_points.append(corners.reshape(1, -1, 2))
         obj_points.append(pattern_points.reshape(1, -1, 3))
 
-        print 'ok'
+        print('ok')
 
     if args.corners:
         with open(args.corners, 'wb') as fw:
@@ -86,9 +86,11 @@ if __name__ == '__main__':
 
     print('\nPerforming calibration...')
     rms, camera_matrix, dist_coefs, rvecs, tvecs = cv2.calibrateCamera(obj_points, img_points, (w, h), None, None)
-    print "RMS:", rms
-    print "camera matrix:\n", camera_matrix
-    print "distortion coefficients: ", dist_coefs.ravel()
+    print("RMS:" + str(rms))
+    print("camera matrix:\n" + str(camera_matrix))
+    print("distortion coefficients: " + str(dist_coefs.ravel()))
+
+    
 
     # # fisheye calibration
     # rms, camera_matrix, dist_coefs, rvecs, tvecs = cv2.fisheye.calibrate(
